@@ -36,7 +36,7 @@ def loaddata(con, archive, insert):
 	con.commit()
 
 def main():
-	dbfile = 'data_inicidencias.db'
+	dbfile = 'data_inicidencias2.db'
 	if os.path.exists(dbfile): 
 		os.remove(dbfile)
 	con = lite.connect(dbfile)
