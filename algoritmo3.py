@@ -45,7 +45,7 @@ plotdata(data,labels,'basic')
 dist = sklearn.neighbors.DistanceMetric.get_metric('euclidean')
 matsim = dist.pairwise(data)
 # 1.2 Compute the k-nearest neighboors
-minPts=10
+minPts=5
 from sklearn.neighbors import kneighbors_graph
 A = kneighbors_graph(data, minPts, include_self=False)
 Ar = A.toarray()
@@ -62,7 +62,7 @@ plt.show()
 
 # 2. Execute clustering (dbscan)
 import sklearn.cluster
-labels = sklearn.cluster.DBSCAN(eps=0.08, min_samples=minPts).fit_predict(data)
+labels = sklearn.cluster.DBSCAN(eps=0.005, min_samples=minPts).fit_predict(data)
 
 # 3. Plot the results
 plotdata(data,labels, 'dbscan')
@@ -71,6 +71,7 @@ plotdata(data,labels, 'dbscan')
 from sklearn import metrics
 print("Silhouette Coefficient: %0.3f"
       % metrics.silhouette_score(np.asarray(data), labels))
+print("N. Clusters: %d" % (len(set(labels)) - (1 if -1 in labels else 0)))
 
                        
                        
