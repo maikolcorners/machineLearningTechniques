@@ -12,14 +12,13 @@ import matplotlib.pyplot as plt
 import sklearn.neighbors
 import numpy as np
 
-
 # def function load data 
 def loaddata(filename):
 	dbfile = filename
 	con = lite.connect(dbfile)
 	cur = con.cursor()
 	data = []
-	for row in cur.execute('SELECT longitud,latitud FROM incidencias'):
+	for row in cur.execute('SELECT longitud,latitud FROM incidencias' ):
 		data.append([float(row[0]), float(row[1])])
 	return data
 

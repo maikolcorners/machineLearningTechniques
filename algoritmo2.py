@@ -12,7 +12,7 @@ def loaddata(con, archive, insert):
 	count1= 0
 	row=[]	
 	for line in f:
-		linea1=line.find('<?xml')		
+		linea1=line.find('<?xml' )		
 		if linea1==-1 :
 			if count > 1 and count < 17:				
 				if line.find('</incidenciaGeolocalizada>')!=-1:					
@@ -21,7 +21,7 @@ def loaddata(con, archive, insert):
 							cursor.execute(insert, row)			
 					
 					row=[]
-					count=0;					
+					count=0					
 				else:					
 					inicio=line.find('>')
 					final=line.find('</')
@@ -29,8 +29,7 @@ def loaddata(con, archive, insert):
 			elif count ==17:
 				break
 		
-			count+=1
-			
+			count+=1			
 			
 	cursor.close()
 	con.commit()
@@ -50,7 +49,6 @@ def main():
 	# 2. LOAD DATA
 	loaddata(con, "inc2006.xml", 
 		"INSERT INTO INCIDENCIAS VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
-	
 	
 	return 0
 

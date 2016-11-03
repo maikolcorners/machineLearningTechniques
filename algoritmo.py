@@ -28,8 +28,7 @@ def loaddata(con, archive, insert):
 			elif count ==17:
 				break
 		
-			count+=1
-			
+			count+=1			
 			
 	cursor.close()
 	con.commit()
@@ -49,8 +48,7 @@ def main():
 	# 2. LOAD DATA
 	loaddata(con, "inc2006.xml", 
 		"INSERT INTO INCIDENCIAS VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
-	
-	
+		
 	return 0
 
 if __name__ == '__main__':
