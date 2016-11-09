@@ -11,6 +11,7 @@ def loaddata(con, archive, insert):
 	count = 0
 	count1= 0
 	row=[]	
+	ide=0
 	for line in f:
 		linea1=line.find('<?xml' )		
 		if linea1==-1 :
@@ -18,7 +19,9 @@ def loaddata(con, archive, insert):
 				if line.find('</incidenciaGeolocalizada>')!=-1:					
 					if row[2]=='ARABA':
 						if row[0]=='Accidente':
-							cursor.execute(insert, row)			
+							row.insert(0, ide)
+							cursor.execute(insert, row)
+							ide+=1			
 					
 					row=[]
 					count=0					
@@ -41,14 +44,14 @@ def main():
 	con = lite.connect(dbfile)
 	# 1. CREATE TABLES. It is possible to create the table using a SQLite Manager or SQLite command line
 	# data as int because is a format YYMMDD
-	con.execute('CREATE TABLE INCIDENCIAS (tipo TEXT, autonomia TEXT, provincia TEXT, matricula TEXT,'+
+	con.execute('CREATE TABLE INCIDENCIAS (id INT, tipo TEXT, autonomia TEXT, provincia TEXT, matricula TEXT,'+
 			'causa TEXT, poblacion TEXT, fechahora_ini TEXT, nivel TEXT, carretera TEXT,'+
 			'pk_inicial INT, pk_final INT, sentido TEXT, longitud REAL, latitud REAL)')
 	con.commit()
 
 	# 2. LOAD DATA
 	loaddata(con, "inc2006.xml", 
-		"INSERT INTO INCIDENCIAS VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
+		"INSERT INTO INCIDENCIAS VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
 	
 	return 0
 
