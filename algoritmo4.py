@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Fri Mar 11 08:32:57 2016
-
-@author: FranciscoP.Romero
-"""
 
 # cargar datos y primer gráfico sin clustering.
 
@@ -17,9 +12,7 @@ from sklearn import metrics
 
 
 # def function load data
-def loaddata(filename):
-	dbfile = filename
-	con = lite.connect(dbfile)
+def loaddata(con):
 	cur = con.cursor()
 	data = []
 	for row in cur.execute('SELECT longitud,latitud FROM incidencias'):
@@ -38,8 +31,10 @@ def plotdata(data,labels,name): #def function plotdata
     plt.show()
 
 
+#Connection
+con = lite.connect("data_inicidencias2.db")
 #load and plot data
-data = loaddata("data_inicidencias2.db")
+data = loaddata(con)
 #c,data = loadtraffic()
 labels = [0 for x in range(len(data))]
 plotdata(data,labels,'basic')
@@ -52,5 +47,10 @@ labels = spectral.fit_predict(data)
 plotdata(data,labels,'spectral')
 print("Silhouette Coefficient (Spectral): %0.3f"
       % metrics.silhouette_score(np.asarray(data), labels))
-                      
-                       
+
+#add a new field in db about zone
+###con.execute('ALTER TABLE INCIDENCIAS ADD zona INT')
+cur = con.cursor()
+for i in range(len(labels)):
+	cur.execute('UPDATE INCIDENCIAS SET zona=' + str(labels [i]) + ' WHERE id=' + str(i))
+con.commit()
