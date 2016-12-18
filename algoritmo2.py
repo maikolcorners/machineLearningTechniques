@@ -5,6 +5,7 @@ import sqlite3 as lite
 import codecs
 import os
 
+
 def loaddata(con, archive, insert):
 	cursor= con.cursor()
 	f = codecs.open(archive, "r", "ISO-8859-1")
@@ -42,7 +43,7 @@ def main():
 	if os.path.exists(dbfile): 
 		os.remove(dbfile)
 	con = lite.connect(dbfile)
-	# 1. CREATE TABLES. It is possible to create the table using a SQLite Manager or SQLite command line
+	# 1. CREATE TABLES. It is possible to create the table using a SQLite Manager or SQLite command line.
 	# data as int because is a format YYMMDD
 	con.execute('CREATE TABLE INCIDENCIAS (id INT, tipo TEXT, autonomia TEXT, provincia TEXT, matricula TEXT,'+
 			'causa TEXT, poblacion TEXT, fechahora_ini TEXT, nivel TEXT, carretera TEXT,'+

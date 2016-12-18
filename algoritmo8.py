@@ -21,8 +21,7 @@ def loaddata(con, archive, insert):
 						if row[0]=='Obras':
 							row.insert(0, ide)
 							cursor.execute(insert, row)
-							ide+=1			
-					
+							ide+=1					
 					row=[]
 					count=0					
 				else:					
@@ -54,7 +53,6 @@ def main():
 		"INSERT INTO INCIDENCIAS VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
 	
 	return 0
-
 if __name__ == '__main__':
 	main()
 
