@@ -64,7 +64,7 @@ oldEqual=0
 for weights in ['uniform', 'distance']:
 	for k in range(1,50):
 		clf = neighbors.KNeighborsClassifier(k, weights=weights)
-		clf.fit(x, y)
+		clf.fit(x, y)		
 		tdY = clf.predict(x2)
 		i=0
 		equal=0
